@@ -15,18 +15,8 @@ def res():
     cursor.execute("SELECT * FROM specifiche")
     results = cursor.fetchall()
 
-    return jsonify(results)
+    return json.dumps(results)
   
-    
-        
-               
-       
-   
-       
-    
-    
-   
-   
 
 @app.route('/riceve', methods=['POST'])
 def riceve():
@@ -45,6 +35,9 @@ def riceve():
         
     else:
         return jsonify({"error": "Il corpo della richiesta non è JSON"}), 400
+    
+
+
 @app.route('/taglia', methods=['DELETE'])  
 def taglia():
     ric= request.get_json()
@@ -58,6 +51,8 @@ def taglia():
         cursor.execute("DELETE FROM specifiche WHERE ID = %s", (ric["ID"],))
         data.commit()
         return jsonify({"message": "Dati eliminati con successo"}), 200
+    
+
 @app.route('/modifica', methods=['PUT'])
 def modifica():
     ric = request.get_json()
